@@ -25,3 +25,10 @@ go install github.com/stapelberg/rsyncprom/cmd/rsync-prom@latest
 [Service]
 ExecStart=/home/michael/go/bin/rsync-prom --instance="sync-wiki" -- /usr/bin/rsync --exclude data/cache -av --checksum server:wiki/ /var/cache/wiki
 ```
+
+## Code example: SSH wrapper
+
+Here’s an example for code which uses the `x/crypto/ssh` package to trigger
+rsync on a remote machine and parses the output:
+
+https://github.com/stapelberg/zkj-nas-tools/blob/02d46d718df60c413844d9218f6dd702ad94e5f1/dornroeschen/sshutil.go#L134-L139
