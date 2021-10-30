@@ -1,5 +1,7 @@
 # rsync-prom
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/stapelberg/rsyncprom.svg)](https://pkg.go.dev/github.com/stapelberg/rsyncprom)
+
 An rsync wrapper (or output parser) that pushes metrics to
 [prometheus](https://prometheus.io/).
 
