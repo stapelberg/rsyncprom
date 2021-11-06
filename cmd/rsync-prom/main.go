@@ -35,13 +35,16 @@ func rsyncprommain() error {
 
 	ctx := context.Background()
 	var rsync *exec.Cmd
+	var stdoutPipe io.ReadCloser
 	start := func(ctx context.Context, args []string) (io.Reader, error) {
 		rsync = exec.CommandContext(ctx, args[0], args[1:]...)
+		rsync.Stderr = os.Stderr
 		rc, err := rsync.StdoutPipe()
 		if err != nil {
 			return nil, err
 		}
-		defer rc.Close()
+		stdoutPipe = rc
+
 		log.Printf("Starting rsync %q", rsync.Args)
 		if err := rsync.Start(); err != nil {
 			return nil, err
@@ -49,6 +52,7 @@ func rsyncprommain() error {
 		return rc, nil
 	}
 	wait := func() int {
+		defer stdoutPipe.Close()
 		if err := rsync.Wait(); err != nil {
 			if exiterr, ok := err.(*exec.ExitError); ok {
 				if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
