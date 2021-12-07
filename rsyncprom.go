@@ -134,10 +134,6 @@ func WrapRsync(ctx context.Context, params *WrapParams, args []string, start fun
 	}
 	pushAll(startTimeMetric)
 
-	rd, err := start(ctx, args)
-	if err != nil {
-		return err
-	}
 	exitCode := 0
 	defer func() {
 		log.Printf("Pushing exit code %d", exitCode)
@@ -149,6 +145,12 @@ func WrapRsync(ctx context.Context, params *WrapParams, args []string, start fun
 		// end timestamp is push_time_seconds
 		pushAll(exitCodeMetric)
 	}()
+
+	rd, err := start(ctx, args)
+	if err != nil {
+		exitCode = 254
+		return err
+	}
 
 	log.Printf("Parsing rsync output")
 	parsed, err := Parse(rd)
