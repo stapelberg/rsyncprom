@@ -1,5 +1,5 @@
 all: test
-	CGO_ENABLED=0 go install -mod=mod
+	CGO_ENABLED=0 go install -mod=mod ./cmd/...
 
 test:
 	go test -mod=mod -v ./...
