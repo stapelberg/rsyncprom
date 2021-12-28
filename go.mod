@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/google/go-cmp v0.5.6
 	github.com/prometheus/client_golang v1.11.0
+	github.com/stapelberg/rsyncparse v0.0.0-20211228091344-84a4474990ee
 )
 
 require (
