@@ -31,6 +31,10 @@ func rsyncprommain() error {
 	flag.StringVar(&params.Job, "job",
 		"rsync",
 		"prometheus job label")
+	exit24IsExit0 := flag.Bool("exit_24_is_exit_0",
+		false,
+		// e.g.: directory has vanished: "/home/michael/.local/share/containers/storage/overlay/2dcb7ef2c46242b1584effa327b6faf276075d76637d508775befdef4415e2c0"
+		"rsync exits with status code 24 when a file or directory vanishes between listing and transferring it. this can be expected (when doing a full backup while working with docker containers, for example) or cause for concern (when replicating an ever-growing data set). when this flag is enabled, rsync-prom treats exit code 24 like exit code 0 (expected)")
 	flag.Parse()
 
 	ctx := context.Background()
@@ -56,7 +60,11 @@ func rsyncprommain() error {
 		if err := rsync.Wait(); err != nil {
 			if exiterr, ok := err.(*exec.ExitError); ok {
 				if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
-					return status.ExitStatus()
+					code := status.ExitStatus()
+					if *exit24IsExit0 && code == 24 {
+						code = 0
+					}
+					return code
 				}
 			}
 			log.Print(err)
