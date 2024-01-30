@@ -1,11 +1,11 @@
 module github.com/stapelberg/rsyncprom
 
-go 1.17
+go 1.21
 
 require (
 	github.com/google/go-cmp v0.5.6
 	github.com/prometheus/client_golang v1.11.0
-	github.com/stapelberg/rsyncparse v0.0.0-20211228091344-84a4474990ee
+	github.com/stapelberg/rsyncparse v0.0.0-20240130202559-76f2a26bb33f
 )
 
 require (
