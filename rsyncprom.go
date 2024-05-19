@@ -120,7 +120,7 @@ func WrapRsync(ctx context.Context, params *WrapParams, args []string, start fun
 		})
 		totalSize.Set(float64(parsed.TotalSize))
 
-		pushAll(totalWrittenMetric, totalReadMetric, totalSize)
+		pushAll(totalWrittenMetric, totalReadMetric, bytesPerSec, totalSize)
 	}
 
 	log.Printf("Waiting for rsync to exit")
