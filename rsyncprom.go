@@ -3,7 +3,7 @@
 //
 // This package contains the parser, see cmd/rsync-prom for a wrapper program.
 //
-// Rsync Requirements
+// # Rsync Requirements
 //
 // Start rsync with --verbose (-v) or --stats to enable printing transfer
 // totals.
