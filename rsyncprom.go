@@ -112,7 +112,7 @@ func WrapRsync(ctx context.Context, params *WrapParams, args []string, start fun
 			Name: "rsync_bytes_per_sec",
 			Help: "bytes per second",
 		})
-		bytesPerSec.Set(float64(parsed.TotalSize))
+		bytesPerSec.Set(float64(parsed.BytesPerSec))
 
 		totalSize := prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "rsync_total_size",
