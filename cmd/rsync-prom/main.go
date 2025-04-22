@@ -23,7 +23,7 @@ func rsyncprommain() error {
 	}
 	var params rsyncprom.WrapParams
 	flag.StringVar(&params.Pushgateway, "prometheus_push_gateway",
-		"https://pushgateway.ts.zekjur.net",
+		"https://pushgateway.monkey-turtle.ts.net",
 		"URL for the https://github.com/prometheus/pushgateway service to push Prometheus metrics to")
 	flag.StringVar(&params.Instance, "instance",
 		"rsync@"+hostname,
